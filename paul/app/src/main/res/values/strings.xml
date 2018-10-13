@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">WorkHardPlayHard</string>
+    <string name="welcome_msg">Welcome!</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="contacts_permission_rationale">Access to account information is required to sign in.</string>
+    <string name="invite_menu_label">Invite</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="invitation_cta">Call to action</string>
+    <string name="invitation_title">Free ride!</string>
+    <string name="invitation_message">Let\'s go on a ride!</string>
+    <string name="cause_crash">Cause Crash</string>
+</resources>
