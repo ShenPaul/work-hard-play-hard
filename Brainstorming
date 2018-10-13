@@ -22,3 +22,10 @@ ELSE if (altitude > 100 m above sea level), it is Mountain
 ELSE if (latitude is at the poles), it is Snowy
 ELSE if (latitude is at the equator), it is desert
 ELSE, it is a forrested trail
+
+
+How to make lines across the map
+
+[coord 1, coord 1], [coord 2, coord 2], ... until we have done all coords for a specific user ID.  Then move on to next "line"
+Set line color by the adventure category
+See if we can do something to even out curves to make it look less choppy (maybe find the path with least altitude change between each coord?  Using Google's eleveation API)
