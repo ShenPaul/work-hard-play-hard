@@ -13,3 +13,12 @@ What are others thinking?
 Via Polaris' website:
 Our vision is to fuel the passion of riders, workers and outdoor enthusiasts around the world by delivering innovative, high-quality vehicles, products, services and experiences that enrich their lives.
 
+Polaris Adventures
+Desert Oaisis, Forrested Trails, Mountain Passes, Scenic Highways, Snowy Routes
+
+psedocode for categorization
+If (Speed > 40 mph), it is Highway
+ELSE if (altitude > 100 m above sea level), it is Mountain
+ELSE if (latitude is at the poles), it is Snowy
+ELSE if (latitude is at the equator), it is desert
+ELSE, it is a forrested trail
