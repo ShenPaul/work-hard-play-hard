@@ -5,3 +5,6 @@ LatLng midUSA = new LatLng(30, -100);
 
         Polyline forrest1 = googleMap.addPolyline(new PolylineOptions()
                 .add(new LatLng(36.633446, -91.861733), new LatLng(36.739167, -91.663979), new LatLng(36.879903, -91.290444), new LatLng(37.020380, -91.598061)));
+
+Polyline desert1 = googleMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(34.849038, -103.512734), new LatLng(34.912126, -103.605431), new LatLng(34.953220, -103.560113), new LatLng(35.037595, -103.665856), new LatLng(34.967033, -103.807667)));
