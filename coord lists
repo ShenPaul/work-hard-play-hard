@@ -1,0 +1,4 @@
+LatLng midUSA = new LatLng(30, -100);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(midUSA, 2));
+        Polyline mountain1 = googleMap.addPolyline(new PolylineOptions()
+        .add(new LatLng(35.007792, -83.924111), new LatLng(35.366944, -83.759316), new LatLng(35.250394, -83.039712), new LatLng(35.295241, -82.825478)));
