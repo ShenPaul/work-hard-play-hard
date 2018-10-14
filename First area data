@@ -1,0 +1,15 @@
+//Set "zones" around America.  These will help us determine what kind of adventures the are (if their coordinate falls in the yellow section, it is in a desert)
+//"Mountains" to be determined by hight via a Google API.  "Highway" will be a small speed calculation
+
+//set the zone where deserts are
+        Polygon desertZone;
+        desertZone = mMap.addPolygon(new PolygonOptions()
+                .add(new LatLng(023.841609, -112.429276), new LatLng(24.122670, -90.412675), new LatLng(40.710606, -96.872636), new LatLng(40.910173, -104.431230), new LatLng(35.956646, -106.760331), new LatLng(37.226810, -113.879472), new LatLng(41.931689, -114.011307),  new LatLng(41.866270, -120.295487), new LatLng(34.665725, -115.065995), new LatLng(39.058418, -125.041581),new LatLng(023.841609, -112.429276))
+                .strokeColor(Color.YELLOW)
+                .fillColor(Color.YELLOW));
+//set the zone where it is snowy
+        Polygon snowZone;
+        snowZone = mMap.addPolygon(new PolygonOptions()
+                .add(new LatLng(42.509345, -125.777665), new LatLng(45.541737, -96.993486), new LatLng(38.570483, -86.666337), new LatLng(43.537382, -54.322588), new LatLng(78.257197, -20.660478), new LatLng(61.599070, -98.092118), new LatLng(77.633243, 142.200851), new LatLng(42.509345, -125.777665))
+                .strokeColor(Color.DKGRAY)
+                .fillColor(Color.WHITE));
