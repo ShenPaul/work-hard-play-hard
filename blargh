@@ -1,0 +1,238 @@
+package com.example.acer.justamap;
+
+import android.graphics.Color;
+import android.graphics.Point;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.maps.android.PolyUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import java.util.Random;
+
+//include dependencies {
+//    compile 'com.google.maps.android:android-maps-utils:0.5+'
+//} in the Gradel build file, and import com.google.maps.android.PolyUtil; here
+
+public class justmapping extends FragmentActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mCondition = mDatabase;
+
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_justmapping);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+//Set the map to the middle of the US
+        LatLng midUSA = new LatLng(30, -100);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(midUSA, 2));
+
+         Polygon desertZone;
+         desertZone = mMap.addPolygon(new PolygonOptions()
+         .add(new LatLng(023.841609, -112.429276), new LatLng(24.122670, -90.412675), new LatLng(40.710606, -96.872636), new LatLng(40.910173, -104.431230), new LatLng(35.956646, -106.760331), new LatLng(37.226810, -113.879472), new LatLng(41.931689, -114.011307),  new LatLng(41.866270, -120.295487), new LatLng(34.665725, -115.065995), new LatLng(39.058418, -125.041581),new LatLng(023.841609, -112.429276))
+         .strokeColor(Color.YELLOW)
+         .fillColor(Color.YELLOW));
+         //set the zone where it is snowy
+         Polygon snowZone;
+         snowZone = mMap.addPolygon(new PolygonOptions()
+         .add(new LatLng(42.509345, -125.777665), new LatLng(45.541737, -96.993486), new LatLng(38.570483, -86.666337), new LatLng(43.537382, -54.322588), new LatLng(78.257197, -20.660478), new LatLng(61.599070, -98.092118), new LatLng(77.633243, 142.200851), new LatLng(42.509345, -125.777665))
+         .strokeColor(Color.DKGRAY)
+         .fillColor(Color.WHITE));
+
+         Polygon mountainZone;
+         mountainZone = mMap.addPolygon(new PolygonOptions()
+         .add(new LatLng(33.930943, -83.677411), new LatLng(40.335136, -76.799970), new LatLng(40.351883, -79.766279), new LatLng(35.197492, -86.270185), new LatLng(33.930943, -83.677411))
+         .strokeColor(Color.DKGRAY)
+         .fillColor(Color.GRAY));
+
+         Polygon mountainZone2;
+         mountainZone2 = mMap.addPolygon(new PolygonOptions()
+         .add(new LatLng(37.150577, -112.055097), new LatLng(49.962795, -120.393720), new LatLng(49.962795, -111.165204), new LatLng(37.150577, -112.055097))
+         .strokeColor(Color.DKGRAY)
+         .fillColor(Color.GRAY));
+
+
+        //TODO Add the following to the build.gradle app file:       compile 'com.google.maps.android:android-maps-utils:0.5+'
+
+        boolean contained = false;
+        LatLng tempLatLng = new LatLng(36.831945, -81.485108);
+        DatabaseReference temp = mCondition.child("0").child("geometry").child("coordinates").child("0");
+
+                    mCondition.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot d: dataSnapshot.getChildren()) {
+                            DataSnapshot ref_sc = d.child("start_coordinates:");
+                            float lon = ref_sc.child("0").getValue(float.class);
+                            float lat = ref_sc.child("1").getValue(float.class);
+
+
+
+                            //desertZone List  DESERT OASIS
+                            List<LatLng> listDZ = new ArrayList<LatLng>();
+                            listDZ.add(new LatLng(023.841609, -112.429276));
+                            listDZ.add(new LatLng(24.122670, -90.412675));
+                            listDZ.add(new LatLng(40.710606, -96.872636));
+                            listDZ.add(new LatLng(40.910173, -104.431230));
+                            listDZ.add(new LatLng(35.956646, -106.760331));
+                            listDZ.add(new LatLng(37.226810, -113.879472));
+                            listDZ.add(new LatLng(41.931689, -114.011307));
+                            listDZ.add(new LatLng(41.866270, -120.295487));
+                            listDZ.add(new LatLng(34.665725, -115.065995));
+                            listDZ.add(new LatLng(39.058418, -125.041581));
+                            listDZ.add(new LatLng(023.841609, -112.429276));
+
+                            //snowZone List      SNOWY ROUTES
+                            List<LatLng> listSZ = new ArrayList<LatLng>();
+                            listSZ.add(new LatLng(42.509345, -125.777665));
+                            listSZ.add(new LatLng(45.541737, -96.993486));
+                            listSZ.add(new LatLng(38.570483, -86.666337));
+                            listSZ.add(new LatLng(43.537382, -54.322588));
+                            listSZ.add(new LatLng(78.257197, -20.660478));
+                            listSZ.add(new LatLng(61.599070, -98.092118));
+                            listSZ.add(new LatLng(77.633243, 142.200851));
+                            listSZ.add(new LatLng(42.509345, -125.777665));
+
+                            //mountainZoneA List         MOUNTAIN PASSES
+                            List<LatLng> listMZA = new ArrayList<LatLng>();
+                            listMZA.add(new LatLng(33.930943, -83.677411));
+                            listMZA.add(new LatLng(40.335136, -76.799970));
+                            listMZA.add(new LatLng(40.351883, -79.766279));
+                            listMZA.add(new LatLng(35.197492, -86.270185));
+                            listMZA.add(new LatLng(33.930943, -83.677411));
+
+                            //mountainZoneR List
+                            List<LatLng> listMZR = new ArrayList<LatLng>();
+                            listMZR.add(new LatLng(37.150577, -112.055097));
+                            listMZR.add(new LatLng(49.962795, -120.393720));
+                            listMZR.add(new LatLng(49.962795, -111.165204));
+                            listMZR.add(new LatLng(37.150577, -112.055097));
+
+                            boolean contained = false;
+                            LatLng tempLatLng = new LatLng(lat, lon);
+
+
+                    Random rand = new Random();
+                    int n = rand.nextInt(10) + 1;
+                    if (n < 2) {
+                            d.child("type").getRef().setValue(1);
+                    } else if (PolyUtil.containsLocation(tempLatLng, listMZR, contained)) {
+                        //"tag" adventure with #2 (.9 chance)
+                        d.child("type").getRef().setValue(2);;
+                    } else if (PolyUtil.containsLocation(tempLatLng, listMZA, contained)) {
+                        //"tag" adventure with #2 (.9 chance)
+                        d.child("type").getRef().setValue(2);
+                    } else if (PolyUtil.containsLocation(tempLatLng, listSZ, contained)) {
+                        //"tag" adventure with #3 (.75 chance)
+                        rand = new Random();
+                        n = rand.nextInt(12) + 1;
+                        if (n > 3) {
+                            d.child("type").getRef().setValue(3);;
+                        }
+                    } else if (PolyUtil.containsLocation(tempLatLng, listDZ, contained)) {
+                        //"tag" adventure with #4  (.8 chance)
+                        d.child("type").getRef().setValue(4);
+                        rand = new Random();
+                        n = rand.nextInt(12) + 1;
+                        if (n > 3) {
+                            d.child("type").getRef().setValue(3);
+                        }
+                    } else {
+                        //"tag" adventure with #5 (.8 chance), #2 (.1 chance), #3 (.1 chance)
+                        //FORESTED TRAILS
+                        d.child("type").getRef().setValue(5);
+                        rand = new Random();
+                        n = rand.nextInt(10) + 1;
+                        if (n > 2) {
+                           d.child("type").getRef().setValue(3);
+                        } else {
+                           d.child("type").getRef().setValue(4);
+                        }
+                    }
+                }
+            }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                    //TODO feed data in from the database, and add a variable (1-5) to indicate its type
+                    //TODO incorporate this into the icons and color of the Polylines
+                    //TODO add speed check for highway
+                    //TODO (if have time) add some random chance to this as well
+                }
+
+
+
+};
+
+
+                /***** Makes polygons for each zone on the map   ****************
+
+       Polygon desertZone;
+       desertZone = mMap.addPolygon(new PolygonOptions()
+               .add(new LatLng(023.841609, -112.429276), new LatLng(24.122670, -90.412675), new LatLng(40.710606, -96.872636), new LatLng(40.910173, -104.431230), new LatLng(35.956646, -106.760331), new LatLng(37.226810, -113.879472), new LatLng(41.931689, -114.011307),  new LatLng(41.866270, -120.295487), new LatLng(34.665725, -115.065995), new LatLng(39.058418, -125.041581),new LatLng(023.841609, -112.429276))
+               .strokeColor(Color.YELLOW)
+               .fillColor(Color.YELLOW));
+//set the zone where it is snowy
+       Polygon snowZone;
+       snowZone = mMap.addPolygon(new PolygonOptions()
+               .add(new LatLng(42.509345, -125.777665), new LatLng(45.541737, -96.993486), new LatLng(38.570483, -86.666337), new LatLng(43.537382, -54.322588), new LatLng(78.257197, -20.660478), new LatLng(61.599070, -98.092118), new LatLng(77.633243, 142.200851), new LatLng(42.509345, -125.777665))
+               .strokeColor(Color.DKGRAY)
+               .fillColor(Color.WHITE));
+
+       Polygon mountainZone;
+       mountainZone = mMap.addPolygon(new PolygonOptions()
+               .add(new LatLng(33.930943, -83.677411), new LatLng(40.335136, -76.799970), new LatLng(40.351883, -79.766279), new LatLng(35.197492, -86.270185), new LatLng(33.930943, -83.677411))
+               .strokeColor(Color.DKGRAY)
+               .fillColor(Color.GRAY));
+
+       Polygon mountainZone2;
+       mountainZone2 = mMap.addPolygon(new PolygonOptions()
+               .add(new LatLng(37.150577, -112.055097), new LatLng(49.962795, -120.393720), new LatLng(49.962795, -111.165204), new LatLng(37.150577, -112.055097))
+               .strokeColor(Color.DKGRAY)
+               .fillColor(Color.GRAY));
+
+        **********************************************/
