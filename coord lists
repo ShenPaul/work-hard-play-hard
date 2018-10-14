@@ -8,3 +8,6 @@ LatLng midUSA = new LatLng(30, -100);
 
 Polyline desert1 = googleMap.addPolyline(new PolylineOptions()
                 .add(new LatLng(34.849038, -103.512734), new LatLng(34.912126, -103.605431), new LatLng(34.953220, -103.560113), new LatLng(35.037595, -103.665856), new LatLng(34.967033, -103.807667)));
+
+Polyline highway1 = googleMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(41.145084, -101.186741), new LatLng(40.746769, -99.461888), new LatLng(40.829949, -98.088597), new LatLng(40.813321, -97.055882)));
