@@ -91,3 +91,5 @@ lint/tmp/
 #https://stackoverflow.com/questions/1143796/remove-a-file-from-a-git-repository-without-deleting-it-from-the-local-filesyste
 AndroidManifest.xml
 google_maps_api.xml
+
+#https://gist.github.com/albertodebortoli/b2a6c3ebe82d9c13fe77
